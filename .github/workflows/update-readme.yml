@@ -27,6 +27,7 @@ jobs:
           git config --global user.name "hanscastrocitibox"
           git add README.md
           git commit -m "Update README with new message for $DAY"
+          git remote set-url origin https://github.com/hanscastrocitibox/hanscastrocitibox.git
           git push origin HEAD:main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
