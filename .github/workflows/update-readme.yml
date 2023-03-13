@@ -1,0 +1,31 @@
+name: Update README
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '1 0 * * *'
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Update README
+        run: |
+          DAY=$(date +"%A")
+
+          echo "Have a nice $DAY!\\n\\nLet me introduce myself, I'm Hans Castro. We work on Citibox, for more information: [https://citibox.com/](https://citibox.com/)" > README.md
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "hanscastro@citibox.com"
+          git config --global user.name "hanscastrocitibox"
+          git add README.md
+          git commit -m "Update README with new message for $DAY"
+          git remote add origin_with_token https://hanscastrocitibox:${{ secrets.ACCESS_TOKEN }}@github.com/hanscastrocitibox/hanscastrocitibox.git
+          git push origin_with_token main
