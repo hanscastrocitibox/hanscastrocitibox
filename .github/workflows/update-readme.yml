@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '1 0 * * *'
+    - cron: '1 0 * * 1-5'
 
 jobs:
   update-readme:
@@ -17,7 +17,8 @@ jobs:
 
       - name: Update README
         run: |
-          DAY=$(date +"%A")
+          DAY=$(date +%u)
+          if [ "$DAY" -eq 5 ]; then DAY="weekend"; fi
 
           echo "Have a nice $DAY! Let me introduce myself, I'm Hans Castro. We work on Citibox, for more information: [https://citibox.com/](https://citibox.com/)" > README.md
 
@@ -30,4 +31,4 @@ jobs:
           git remote set-url origin https://github.com/hanscastrocitibox/hanscastrocitibox.git
           git push origin HEAD:main
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
