@@ -17,8 +17,8 @@ jobs:
 
       - name: Update README
         run: |
-          DAY=$(date +%u)
-          if [ "$DAY" -eq 5 ]; then DAY="weekend"; fi
+          DAY=$(date +%A)
+          if [ "$DAY" = "Friday" ]; then DAY="weekend"; fi
 
           echo "Have a nice $DAY! Let me introduce myself, I'm Hans Castro. We work on Citibox, for more information: [https://citibox.com/](https://citibox.com/)" > README.md
 
